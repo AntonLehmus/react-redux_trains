@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchBar from './search_bar';
+import TrainsTable from './trains_table';
 
 
 export default class App extends Component {
@@ -7,6 +8,7 @@ export default class App extends Component {
     return (
       <div>
         <SearchBar />
+        <TrainsTable />
       </div>
     );
   }

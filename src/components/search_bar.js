@@ -4,6 +4,7 @@ import Autosuggest from 'react-autosuggest';
 import { reduxForm, Field } from 'redux-form';
 
 import {fetchStations} from '../actions';
+import {fetchTrains} from '../actions';
 
 class SearchBar extends Component {
 
@@ -24,7 +25,17 @@ class SearchBar extends Component {
     }
 
     onSubmit(values){
-        console.log(values);
+
+        //dirty,dirty bodge for Helsinkis double stations
+        _.isEqual(_.lowerCase(values.stationName),"helsinki") ? values.stationName = "Helsinki asema" :'';
+
+        //find users station from stations array
+        const station = _.find(this.props.stations,
+            function(o) { return _.isEqual(_.lowerCase(o.stationName), _.lowerCase(values.stationName)); } );
+
+        if(station) {
+            this.props.fetchTrains(station.stationShortCode);
+        }
     }
 
   render() {
@@ -34,7 +45,7 @@ class SearchBar extends Component {
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <div className="input-group">
                 <Field
-                    name="station"
+                    name="stationName"
                     id="search_bar"
                     type="text"
                     className="form-control"
@@ -61,4 +72,4 @@ function mapDispatchToProps(dispatch) {
 
 export default reduxForm ({
     form: 'SearchForm'
-})(connect(mapStateToProps, { fetchStations }) (SearchBar));
+})(connect(mapStateToProps, { fetchStations, fetchTrains }) (SearchBar));
