@@ -55,6 +55,9 @@ function mapStateToProps(state) {
     return { stations: state.stations };
 }
 
+function mapDispatchToProps(dispatch) {
+    return { getStations:() => dispatch(fetchStations())};
+}
 
 export default reduxForm ({
     form: 'SearchForm'
