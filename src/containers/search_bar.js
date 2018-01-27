@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Autosuggest from 'react-autosuggest';
 import { reduxForm, Field } from 'redux-form';
+import { bindActionCreators} from 'redux';
 
 import {fetchStations} from '../actions';
-import {fetchTrains} from '../actions';
+import {selectStation} from '../actions';
 
 class SearchBar extends Component {
 
@@ -29,12 +30,12 @@ class SearchBar extends Component {
         //dirty,dirty bodge for Helsinkis double stations
         _.isEqual(_.lowerCase(values.stationName),"helsinki") ? values.stationName = "Helsinki asema" :'';
 
-        //find users station from stations array
+        //find user's station from stations array
         const station = _.find(this.props.stations,
             function(o) { return _.isEqual(_.lowerCase(o.stationName), _.lowerCase(values.stationName)); } );
 
         if(station) {
-            this.props.fetchTrains(station.stationShortCode);
+            this.props.selectStation(station);
         }
     }
 
@@ -63,13 +64,15 @@ class SearchBar extends Component {
 }
 
 function mapStateToProps(state) {
-    return { stations: state.stations };
+    return { 
+        stations: state.stations
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-    return { getStations:() => dispatch(fetchStations())};
+    return bindActionCreators({ selectStation, fetchStations },dispatch);
 }
 
 export default reduxForm ({
     form: 'SearchForm'
-})(connect(mapStateToProps, { fetchStations, fetchTrains }) (SearchBar));
+})(connect(mapStateToProps, mapDispatchToProps) (SearchBar));

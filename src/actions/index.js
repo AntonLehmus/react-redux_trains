@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+export const SELECT_STATION = 'select_station';
 export const FETCH_STATIONS = 'fetch_stations';
 export const FETCH_TRAINS = 'fetch_trains';
 
@@ -19,8 +20,9 @@ export function fetchStations() {
 }
 
 
-export function fetchTrains(stationCode) {
-    const request = axios.get(`${ROOT_URL}/live-trains/station/${stationCode}?arrived_trains=0&arriving_trains=5&departed_trains=0&departing_trains=5`);
+export function fetchTrains(stationShortCode) {
+    const request = 
+    axios.get(`${ROOT_URL}/live-trains/station/${stationShortCode}?arrived_trains=0&arriving_trains=5&departed_trains=0&departing_trains=5`);
 
     return (dispatch) => {
         request.then(({data}) => {
@@ -29,5 +31,12 @@ export function fetchTrains(stationCode) {
                 payload: request
             })
         });
+    };
+}
+
+export function selectStation(station) {
+    return {
+        type: SELECT_STATION,
+        payload: station
     };
 }

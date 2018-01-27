@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchBar from './search_bar';
+import SearchBar from '../containers/search_bar';
 import TrainsTable from './trains_table';
 
 

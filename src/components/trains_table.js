@@ -7,10 +7,25 @@ class TrainsTable extends Component {
     render() {
 
         console.log(this.props.trains);
-        //TODO: Loop trough this.props.trains)
         return(
-            <div>
-               
+            <div className="row">
+            <h3>{this.props.activeStation ? this.props.activeStation.stationName :''}</h3>
+                <table className="table table-striped">
+                    <thead className="thead-inverse">
+                        <tr>
+                            <th>Train</th>
+                            <th>Arriving</th>
+                            <th>Departing</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Platform</th>
+                            <th>Cancelled</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </div>
         );
     };
@@ -18,7 +33,7 @@ class TrainsTable extends Component {
 }
 
 function mapStateToProps(state) {
-    return { trains: state.trains };
+    return { trains: state.trains, activeStation: state.activeStation };
 }
 
 export default connect(mapStateToProps) (TrainsTable);

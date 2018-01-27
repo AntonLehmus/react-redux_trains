@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {FETCH_STATIONS} from '../actions';
+import { FETCH_STATIONS } from '../actions';
 
 
 export default function(state = {}, action) {
