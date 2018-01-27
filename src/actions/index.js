@@ -23,7 +23,7 @@ export function fetchStations() {
 export function fetchTrains(stationShortCode) {
     const request = 
     axios.get(`${ROOT_URL}/live-trains/station/${stationShortCode}?arrived_trains=0&arriving_trains=5&departed_trains=0&departing_trains=5`);
-
+    
     return (dispatch) => {
         request.then(({data}) => {
             dispatch({
