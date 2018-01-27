@@ -8,8 +8,8 @@ import {fetchTrains} from '../actions';
 
 class TrainsTable extends Component {
 
+
     componentDidUpdate() {
-        
         if(this.props.activeStation && _.isEmpty(this.props.trains)){
             const stationShortCode = this.props.activeStation.stationShortCode;
             this.props.fetchTrains(stationShortCode);
@@ -25,8 +25,6 @@ class TrainsTable extends Component {
             );
         }
         
-
-        console.log(this.props);
         return(
             <div>
             <h3>{ this.props.activeStation.stationName }</h3>

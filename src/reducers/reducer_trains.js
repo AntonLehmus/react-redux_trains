@@ -7,7 +7,8 @@ export default function(state = {}, action) {
         case FETCH_TRAINS:
             const trains = action.payload.data;
             let trimmed = [];
-            
+
+
             trains.forEach(t => {
                 trimmed.push({
                     'train': `${t.trainType} ${t.trainNumber}`,
